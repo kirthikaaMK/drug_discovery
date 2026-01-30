@@ -4,7 +4,7 @@ import os
 
 class WebAgent:
     def __init__(self):
-        self.api_url = os.getenv('WEB_API_URL', '3460f0e4182c4b5c8a4a43dc76dbd5b9')  # Replace with your API, e.g., NewsAPI
+        self.api_url = os.getenv('WEB_API_URL', '')  # Replace with your API, e.g., NewsAPI
         self.api_key = os.getenv('WEB_API_KEY', '')
         self.use_api = os.getenv('USE_API', 'false').lower() == 'true'
 
