@@ -4,7 +4,7 @@ import os
 
 class ClinicalAgent:
     def __init__(self):
-        self.api_url = os.getenv('CLINICAL_API_URL', 'https://clinicaltrials.gov/api/v2/studies?query.term={query}&pageSize=15')  # Replace with your API
+        self.api_url = os.getenv('CLINICAL_API_URL', '')  # Replace with your API
         self.api_key = os.getenv('CLINICAL_API_KEY', '')
         # Fallback to local data
         self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'clinical_trials.csv')
