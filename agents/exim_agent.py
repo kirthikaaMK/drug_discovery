@@ -4,7 +4,7 @@ import os
 
 class EXIMAgent:
     def __init__(self):
-        self.api_url = os.getenv('EXIM_API_URL', 'https://comtradeapi.un.org/public/v1/preview/data')  # Replace with your API
+        self.api_url = os.getenv('EXIM_API_URL', '')  # Replace with your API
         self.api_key = os.getenv('EXIM_API_KEY', '')
         # Fallback to local data
         self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'exim_data.csv')
