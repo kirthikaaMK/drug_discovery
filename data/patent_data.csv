@@ -1,0 +1,13 @@
+Molecule,Patent Number,Filing Date,Status,Expiry Date,Assignee
+Remdesivir,US9876543,2015-03-15,Active,2035-03-15,Gilead Sciences
+Remdesivir,EP1234567,2016-05-20,Active,2036-05-20,Gilead Sciences
+Pembrolizumab,US8765432,2010-08-10,Active,2030-08-10,Merck
+Pembrolizumab,JP3456789,2011-12-05,Expired,2021-12-05,Merck
+Insulin,US1111111,1922-01-11,Expired,1937-01-11,Novo Nordisk
+Insulin,US2222222,1978-09-17,Active,1998-09-17,Lilly
+Aspirin,US3333333,1899-02-27,Expired,1914-02-27,Bayer
+Aspirin,US4444444,1950-06-15,Expired,1970-06-15,Bayer
+Morphine,US5555555,1806-01-01,Expired,1821-01-01,Sertürner
+Morphine,US6666666,1850-05-10,Expired,1870-05-10,Merck
+Bivalirudin,US7777777,1990-05-22,Active,2010-05-22,The Medicines Company
+Bivalirudin,EP8888888,1991-08-15,Expired,2011-08-15,The Medicines Company

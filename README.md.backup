@@ -1,0 +1,279 @@
+# 🧬 Agentic AI System for Drug Innovation Research
+
+A comprehensive multi-agent AI system that automates literature and data reviews for pharmaceutical innovation discovery. The system identifies potential molecules, unmet medical needs, active clinical trials, related diseases, and patent landscapes — all integrated into a single research workflow.
+
+## 🎯 Project Overview
+
+This academic-level project simulates a **multi-agent AI system** that automates literature and data reviews for pharmaceutical innovation discovery. The system uses multiple specialized AI agents to analyze different aspects of drug research and provides comprehensive insights through an interactive Streamlit interface.
+
+## 🧩 System Architecture
+
+### Master Agent (Conversation Orchestrator)
+- Takes user prompts and breaks them into modular subtasks
+- Calls relevant Worker Agents based on analysis type
+- Synthesizes final summary from all agent results
+
+### Worker Agents
+
+1. **🧠 Market Intelligence Agent** → Analyzes therapy area trends and market data from `iqvia_data.csv`
+2. **📈 EXIM Trends Agent** → Shows import-export volumes from `exim_data.csv`
+3. **📋 Patent Landscape Agent** → Analyzes patent data for molecule names, filing dates, status, and expiry from `patent_data.csv`
+4. **🏥 Clinical Trials Agent** → Monitors molecule-related ongoing or completed trials from `clinical_trials.csv`
+5. **📚 Internal Knowledge Agent** → Searches internal knowledge base from `internal_docs.json`
+6. **🌐 Web Intelligence Agent** → Provides guidelines and news summaries (mock data)
+7. **� Literature Review Agent** → Searches PubMed for scientific publications
+8. **�📄 Report Generator Agent** → Generates downloadable PDF summaries using `reportlab`
+
+## 🖥️ Features
+
+- **Interactive Web Dashboard** with modern Bootstrap UI
+- **Real-time Progress Tracking** with progress bars and status updates
+- **Comprehensive Data Visualization** with tables and charts
+- **Multi-Agent Analysis** with specialized insights from each agent
+- **PDF Report Generation** with professional formatting
+- **Mock Data Simulation** for demonstration purposes
+
+## 📁 Project Structure
+
+```
+agentic_ai_project/
+│
+├── app.py                    # Main Streamlit application
+├── requirements.txt          # Python dependencies
+├── README.md                # Project documentation
+│
+├── agents/                  # AI Agents package
+│   ├── __init__.py
+│   ├── master_agent.py      # Master orchestrator
+│   ├── market_agent.py      # Market intelligence agent
+│   ├── exim_agent.py        # Trade analysis agent
+│   ├── patent_agent.py      # Patent landscape agent
+│   ├── clinical_agent.py    # Clinical trials agent
+│   ├── internal_agent.py    # Internal knowledge agent
+│   ├── web_agent.py         # Web intelligence agent
+│   └── literature_agent.py  # Literature review agent
+│
+├── data/                    # Mock data files
+│   ├── iqvia_data.csv       # Market and therapy area data
+│   ├── exim_data.csv        # Import-export trade data
+│   ├── patent_data.csv      # Patent information
+│   ├── clinical_trials.csv  # Clinical trial data
+│   └── internal_docs.json   # Internal research documents
+│
+├── utils/                   # Utility functions
+│   ├── __init__.py
+│   └── pdf_generator.py     # PDF report generation
+│
+└── reports/                 # Generated PDF reports (created at runtime)
+```
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Python 3.10 or higher
+- pip package manager
+
+### Installation Steps
+
+1. **Clone or download the project**
+   ```bash
+   # If using git
+   git clone <repository-url>
+   cd agentic_ai_project
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure APIs (Optional)**
+   - Copy `.env.example` to `.env`
+   - Set `USE_API=true` to enable API mode
+   - Configure your API URLs and keys in `.env`
+   - If not using APIs, the system will use mock local data
+
+4. **Run the application**
+   ```bash
+   python app.py
+   ```
+
+4. **Access the application**
+   - Open your browser and go to `http://localhost:5000`
+   - The web application will be running locally
+
+## 💡 Usage Guide
+
+### Basic Usage
+
+1. **Enter a Research Query**
+   - Type a molecule name (e.g., "Remdesivir", "Pembrolizumab")
+   - Or enter a research topic (e.g., "COVID-19 treatment", "Oncology drugs")
+
+2. **Select Analysis Type**
+   - **Comprehensive Analysis**: Full analysis using all agents
+   - **Patent Focus**: Patent and clinical trial analysis
+   - **Clinical Trials Focus**: Clinical trials and market intelligence
+   - **Market Intelligence Focus**: Market data and trade analysis
+
+3. **Run Analysis**
+   - Click "🚀 Run Analysis" button
+   - Watch the progress bars as each agent processes your query
+   - Review results in the organized tabs
+
+4. **Download Report**
+   - Click "📥 Download Full Report (PDF)" to get a comprehensive PDF report
+   - The report includes all agent findings, insights, and recommendations
+
+### Sample Queries
+
+Try these sample queries to explore the system:
+- **Remdesivir** - Antiviral drug analysis
+- **COVID-19 treatment** - Therapeutic area analysis
+- **Oncology immunotherapy** - Cancer treatment analysis
+- **Alzheimer's drugs** - Neurological drug analysis
+- **Diabetes medications** - Metabolic disease analysis
+
+## 📊 Data Sources
+
+The system uses mock data files that simulate real pharmaceutical research data:
+
+- **IQVIA Data**: Market size, growth rates, competitor analysis
+- **EXIM Data**: Import-export volumes and trade values
+- **Patent Data**: Patent numbers, filing dates, expiry dates, assignees
+- **Clinical Trials**: Trial phases, status, participants, results
+- **Internal Documents**: Research notes, competitive intelligence, regulatory updates
+- **Web Intelligence**: Guidelines, news, regulatory updates (simulated)
+
+## 🔧 Technical Stack
+
+- **Backend**: Flask web framework with Python
+- **Frontend**: HTML5, CSS3, Bootstrap 5, JavaScript
+- **Data Processing**: Pandas for CSV/JSON data manipulation
+- **Visualization**: Matplotlib, Plotly for charts and graphs
+- **PDF Generation**: ReportLab for professional report creation
+- **Web Scraping**: Requests for API calls
+- **Data Processing**: Pandas for CSV/JSON data manipulation
+
+## 🎨 UI Features
+
+- **Modern Dashboard Design** with custom CSS styling
+- **Progress Tracking** with real-time status updates
+- **Interactive Tabs** for organized result display
+- **Data Tables** with sortable columns
+- **Visual Charts** for data representation
+- **Download Functionality** for PDF reports
+- **Responsive Design** that works on different screen sizes
+
+## 📈 Analysis Types
+
+### Comprehensive Analysis
+- Uses all 7 worker agents
+- Provides complete market, patent, clinical, regulatory, and literature overview
+- Best for initial research and strategic planning
+
+### Patent Focus
+- Emphasizes patent landscape and clinical trial analysis
+- Includes internal knowledge base search
+- Ideal for IP strategy and competitive analysis
+
+### Clinical Trials Focus
+- Focuses on clinical development pipeline
+- Includes market intelligence and internal insights
+- Perfect for R&D planning and partnership evaluation
+
+### Market Intelligence Focus
+- Emphasizes market data and trade analysis
+- Includes web intelligence for external insights
+- Great for market entry and business development
+
+## 🔍 Agent Capabilities
+
+### Market Intelligence Agent
+- Analyzes therapy area trends and market data
+- Provides market size, growth rates, and competitor analysis
+- Generates market opportunity insights
+
+### EXIM Trends Agent
+- Analyzes import-export data for pharmaceutical products
+- Shows trade volumes, values, and country analysis
+- Identifies supply chain and market opportunities
+
+### Patent Landscape Agent
+- Analyzes patent data for molecules and companies
+- Tracks patent status, expiry dates, and assignees
+- Provides IP strategy recommendations
+
+### Clinical Trials Agent
+- Monitors clinical trial data and progress
+- Analyzes trial phases, participants, and results
+- Identifies development opportunities and partnerships
+
+### Internal Knowledge Agent
+- Searches internal research documents and notes
+- Provides competitive intelligence and market forecasts
+- Offers expert insights and strategic recommendations
+
+### Web Intelligence Agent
+- Analyzes external web sources for guidelines and news
+- Tracks regulatory updates and industry developments
+- Provides real-time market intelligence
+
+### Literature Review Agent
+- Searches PubMed database for scientific publications
+- Provides latest research findings and trends
+- Identifies key studies and reviews related to the query
+
+## 📄 Report Generation
+
+The system generates comprehensive PDF reports that include:
+
+- **Executive Summary** with key findings
+- **Individual Agent Analysis** with detailed results
+- **Data Tables** with relevant information
+- **Key Insights** from each agent
+- **Strategic Recommendations** for decision making
+- **Professional Formatting** suitable for presentations
+
+## 🎯 Academic Use Cases
+
+This system is designed for:
+
+- **Pharmaceutical Research** - Drug discovery and development
+- **Market Analysis** - Competitive intelligence and market sizing
+- **Patent Research** - IP landscape analysis and freedom to operate
+- **Clinical Development** - Trial monitoring and partnership evaluation
+- **Business Development** - Market entry and strategic planning
+- **Academic Research** - Literature review and data synthesis
+
+## 🔮 Future Enhancements
+
+Potential improvements for the system:
+
+- **Real API Integration** - Connect to actual pharmaceutical databases
+- **Machine Learning** - Add predictive analytics and trend forecasting
+- **Advanced Visualization** - Interactive charts and network graphs
+- **Database Integration** - Store and retrieve historical analyses
+- **User Authentication** - Multi-user support with role-based access
+- **API Endpoints** - RESTful API for external system integration
+
+## 📝 License
+
+This project is created for academic and educational purposes. Please ensure compliance with any applicable data usage policies when using real pharmaceutical data.
+
+## 🤝 Contributing
+
+This is an academic project designed to demonstrate multi-agent AI systems in pharmaceutical research. Contributions and suggestions are welcome for educational purposes.
+
+## 📞 Support
+
+For questions or issues with the system:
+
+1. Check the console output for error messages
+2. Ensure all dependencies are properly installed
+3. Verify that data files are in the correct location
+4. Check that Python version is 3.10 or higher
+
+---
+
+**Note**: This system uses mock data for demonstration purposes. In a production environment, it would connect to real pharmaceutical databases and APIs.

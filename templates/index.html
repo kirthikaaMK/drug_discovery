@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧬 Agentic AI Drug Discovery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .hero h1 {
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero p {
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        .progress {
+            height: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            animation: progressAnimation 2s ease-in-out infinite;
+        }
+        .agent-tab {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            animation: slideIn 0.5s ease-out;
+        }
+        .data-table {
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 10px;
+        }
+        .btn {
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+        }
+        .btn-success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+        }
+        .nav-tabs .nav-link {
+            border-radius: 10px 10px 0 0;
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            color: #666;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .nav-tabs .nav-link.active {
+            background: white;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            background: white;
+        }
+        .form-select {
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes progressAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+        .stats-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: scale(1.05);
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: #ecf0f1;
+        }
+        .dark-mode .card {
+            background: rgba(44, 62, 80, 0.9);
+            color: #ecf0f1;
+        }
+        .dark-mode .hero {
+            background: rgba(44, 62, 80, 0.8);
+        }
+        .dark-mode .agent-tab {
+            background: rgba(52, 73, 94, 0.8);
+        }
+        .dark-mode .stats-card {
+            background: rgba(52, 73, 94, 0.9);
+            color: #ecf0f1;
+        }
+        .dark-mode .nav-tabs .nav-link {
+            background: rgba(52, 73, 94, 0.5);
+            color: #bdc3c7;
+        }
+        .dark-mode .nav-tabs .nav-link.active {
+            background: rgba(44, 62, 80, 0.9);
+            color: #ecf0f1;
+        }
+        .dark-mode .form-control, .dark-mode .form-select {
+            background: rgba(52, 73, 94, 0.8);
+            color: #ecf0f1;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .dark-mode .table {
+            color: #ecf0f1;
+        }
+        .dark-mode .table-striped tbody tr:nth-of-type(odd) {
+            background: rgba(52, 73, 94, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-mode-toggle">
+        <button class="btn btn-outline-light" id="darkModeBtn">
+            <i class="fas fa-moon"></i> Dark Mode
+        </button>
+    </div>
+
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="hero">
+        <div class="container text-center">
+            <h1 class="display-4"><i class="fas fa-dna"></i> Agentic AI System for Drug Innovation Research</h1>
+            <p class="lead">Multi-agent AI system for pharmaceutical research and analysis</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <i class="fas fa-brain fa-2x text-primary mb-2"></i>
+                            <div class="stats-number" id="agentsCount">10</div>
+                            <div>AI Agents</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <i class="fas fa-database fa-2x text-success mb-2"></i>
+                            <div class="stats-number" id="dataSources">8</div>
+                            <div>Data Sources</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <i class="fas fa-chart-line fa-2x text-info mb-2"></i>
+                            <div class="stats-number" id="analysesCount">0</div>
+                            <div>Analyses Run</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card">
+                            <i class="fas fa-clock fa-2x text-warning mb-2"></i>
+                            <div class="stats-number" id="avgTime">2.5s</div>
+                            <div>Avg Response</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4">
+                    <form id="analysisForm">
+                        <div class="mb-3">
+                            <label for="query" class="form-label">
+                                <i class="fas fa-search"></i> Research Query
+                            </label>
+                            <input type="text" class="form-control" id="query" placeholder="e.g., Remdesivir, COVID-19 treatment, Oncology drugs" required>
+                            <div class="form-text">Enter a molecule name, disease, or research topic</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="analysisType" class="form-label">
+                                <i class="fas fa-chart-bar"></i> Analysis Type
+                            </label>
+                            <select class="form-select" id="analysisType">
+                                <option value="comprehensive">Comprehensive Analysis</option>
+                                <option value="patent_focus">Patent Focus</option>
+                                <option value="clinical_focus">Clinical Trials Focus</option>
+                                <option value="market_focus">Market Intelligence Focus</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="typeDescription">
+                            <small class="text-muted">Full analysis using all agents (Market, EXIM, Patent, Clinical, Internal, Web, Literature, ML Predictions, Generative AI, NLP Analysis)</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-history"></i> Recent Searches</label>
+                            <div id="searchHistory" class="d-flex flex-wrap gap-2">
+                                <!-- Recent searches will appear here -->
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn">
+                            <i class="fas fa-rocket"></i> Run Analysis
+                        </button>
+                    </form>
+
+                    <div id="progressSection" class="mt-4" style="display: none;">
+                        <h5>Analysis Progress</h5>
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <p id="statusText" class="text-center">Initializing...</p>
+                    </div>
+
+                    <div id="resultsSection" class="mt-4" style="display: none;">
+                        <h5>Analysis Results</h5>
+                        <div id="summaryCard" class="card p-3 mb-3">
+                            <h6>Executive Summary</h6>
+                            <div id="summaryContent"></div>
+                        </div>
+
+                        <div class="card p-3 mb-3">
+                            <h6>Analysis Overview</h6>
+                            <canvas id="overviewChart" width="400" height="200"></canvas>
+                        </div>
+
+                        <ul class="nav nav-tabs" id="resultsTabs" role="tablist">
+                        </ul>
+                        <div class="tab-content" id="resultsContent">
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <a id="downloadBtn" href="#" class="btn btn-success" style="display: none;">
+                                <i class="fas fa-download"></i> Download Full Report (PDF)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let jobId = null;
+        let statusInterval = null;
+        let analysesCount = parseInt(localStorage.getItem('analysesCount') || '0');
+        let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+
+        // Update stats
+        document.getElementById('analysesCount').textContent = analysesCount;
+        updateSearchHistory();
+
+        function updateSearchHistory() {
+            const historyContainer = document.getElementById('searchHistory');
+            historyContainer.innerHTML = '';
+            searchHistory.slice(-5).reverse().forEach(query => {
+                const badge = document.createElement('span');
+                badge.className = 'badge bg-secondary me-2 mb-2';
+                badge.style.cursor = 'pointer';
+                badge.textContent = query;
+                badge.onclick = () => {
+                    document.getElementById('query').value = query;
+                };
+                historyContainer.appendChild(badge);
+            });
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 20 + 10 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Dark mode toggle
+        document.getElementById('darkModeBtn').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                this.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                this.className = 'btn btn-outline-warning';
+            } else {
+                icon.className = 'fas fa-moon';
+                this.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                this.className = 'btn btn-outline-light';
+            }
+        });
+
+        // Initialize particles
+        createParticles();
+
+        document.getElementById('analysisType').addEventListener('change', function() {
+            const descriptions = {
+                'comprehensive': 'Full analysis using all agents (Market, EXIM, Patent, Clinical, Internal, Web, Literature, ML Predictions, Generative AI, NLP Analysis)',
+                'patent_focus': 'Patent landscape, clinical trials, and internal knowledge',
+                'clinical_focus': 'Clinical trials, market intelligence, and internal insights',
+                'market_focus': 'Market data, trade analysis, and web intelligence'
+            };
+            document.getElementById('typeDescription').innerHTML = '<small class="text-muted">' + descriptions[this.value] + '</small>';
+        });
+
+        document.getElementById('analysisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            startAnalysis();
+        });
+
+        function startAnalysis() {
+            const query = document.getElementById('query').value.trim();
+            const analysisType = document.getElementById('analysisType').value;
+
+            if (!query) {
+                alert('Please enter a research query');
+                return;
+            }
+
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('progressSection').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+
+            // Add to search history
+            if (!searchHistory.includes(query)) {
+                searchHistory.push(query);
+                localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+                updateSearchHistory();
+            }
+
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: query, analysis_type: analysisType }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    document.getElementById('submitBtn').disabled = false;
+                    return;
+                }
+                jobId = data.job_id;
+                analysesCount++;
+                localStorage.setItem('analysesCount', analysesCount);
+                document.getElementById('analysesCount').textContent = analysesCount;
+                pollStatus();
+            })
+            .catch(error => {
+                alert('Error starting analysis: ' + error);
+                document.getElementById('submitBtn').disabled = false;
+            });
+        }
+
+        function pollStatus() {
+            statusInterval = setInterval(() => {
+                fetch('/status/' + jobId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        clearInterval(statusInterval);
+                        alert('Error: ' + data.error);
+                        return;
+                    }
+
+                    const progress = Math.round(data.progress * 100);
+                    document.querySelector('.progress-bar').style.width = progress + '%';
+                    document.getElementById('statusText').textContent = data.status;
+
+                    if (data.status === 'completed') {
+                        clearInterval(statusInterval);
+                        showResults();
+                    } else if (data.status === 'error') {
+                        clearInterval(statusInterval);
+                        alert('Analysis failed: ' + data.error);
+                        document.getElementById('submitBtn').disabled = false;
+                    }
+                });
+            }, 1000);
+        }
+
+        function showResults() {
+            fetch('/results/' + jobId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    return;
+                }
+
+                document.getElementById('progressSection').style.display = 'none';
+                document.getElementById('resultsSection').style.display = 'block';
+                document.getElementById('submitBtn').disabled = false;
+
+                // Show summary
+                document.getElementById('summaryContent').innerHTML = data.summary.replace(/\n/g, '<br>');
+
+                // Create overview chart
+                const agentNames = Object.keys(data.results);
+                const dataCounts = agentNames.map(name => data.results[name].data ? data.results[name].data.length : 0);
+
+                const ctx = document.getElementById('overviewChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: agentNames,
+                        datasets: [{
+                            label: 'Data Points Found',
+                            data: dataCounts,
+                            backgroundColor: [
+                                'rgba(102, 126, 234, 0.8)',
+                                'rgba(118, 75, 162, 0.8)',
+                                'rgba(40, 167, 69, 0.8)',
+                                'rgba(32, 201, 151, 0.8)',
+                                'rgba(255, 193, 7, 0.8)',
+                                'rgba(220, 53, 69, 0.8)',
+                                'rgba(23, 162, 184, 0.8)',
+                                'rgba(255, 159, 243, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(102, 126, 234, 1)',
+                                'rgba(118, 75, 162, 1)',
+                                'rgba(40, 167, 69, 1)',
+                                'rgba(32, 201, 151, 1)',
+                                'rgba(255, 193, 7, 1)',
+                                'rgba(220, 53, 69, 1)',
+                                'rgba(23, 162, 184, 1)',
+                                'rgba(255, 159, 243, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+
+                // Create tabs
+                const tabsContainer = document.getElementById('resultsTabs');
+                const contentContainer = document.getElementById('resultsContent');
+                tabsContainer.innerHTML = '';
+                contentContainer.innerHTML = '';
+
+                let first = true;
+                for (const [agentName, result] of Object.entries(data.results)) {
+                    const tabId = 'tab-' + agentName;
+                    const isActive = first ? 'active' : '';
+                    first = false;
+
+                    tabsContainer.innerHTML += `
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link ${isActive}" id="${tabId}-tab" data-bs-toggle="tab" data-bs-target="#${tabId}" type="button" role="tab">${result.agent}</button>
+                        </li>
+                    `;
+
+                    let content = `<div class="tab-pane fade show ${isActive}" id="${tabId}" role="tabpanel">
+                        <div class="agent-tab">
+                            <p>${result.insights}</p>`;
+
+                    if (result.data && result.data.length > 0) {
+                        content += '<h6>Data Table</h6><div class="data-table"><table class="table table-striped"><thead><tr>';
+                        if (result.data[0]) {
+                            Object.keys(result.data[0]).forEach(key => {
+                                content += `<th>${key}</th>`;
+                            });
+                        }
+                        content += '</tr></thead><tbody>';
+                        result.data.slice(0, 10).forEach(row => {
+                            content += '<tr>';
+                            Object.values(row).forEach(value => {
+                                content += `<td>${value}</td>`;
+                            });
+                            content += '</tr>';
+                        });
+                        content += '</tbody></table></div>';
+                    }
+
+                    // Add agent-specific charts
+                    if (result.charts && Object.keys(result.charts).length > 0) {
+                        content += '<h6>Analysis Charts</h6><div class="row">';
+                        for (const [chartName, chartData] of Object.entries(result.charts)) {
+                            const chartId = `chart-${agentName}-${chartName}`;
+                            content += `<div class="col-md-6 mb-3"><canvas id="${chartId}" width="300" height="200"></canvas></div>`;
+                        }
+                        content += '</div>';
+                    }
+
+                    content += '</div></div>';
+                    contentContainer.innerHTML += content;
+
+                    // Render agent-specific charts
+                    if (result.charts && Object.keys(result.charts).length > 0) {
+                        for (const [chartName, chartData] of Object.entries(result.charts)) {
+                            const chartId = `chart-${agentName}-${chartName}`;
+                            const ctx = document.getElementById(chartId).getContext('2d');
+
+                            const chartConfig = {
+                                type: chartData.type || 'bar',
+                                data: {
+                                    labels: chartData.labels,
+                                    datasets: [{
+                                        label: chartName.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                                        data: chartData.values,
+                                        backgroundColor: chartData.colors || [
+                                            'rgba(102, 126, 234, 0.8)',
+                                            'rgba(118, 75, 162, 0.8)',
+                                            'rgba(40, 167, 69, 0.8)',
+                                            'rgba(32, 201, 151, 0.8)',
+                                            'rgba(255, 193, 7, 0.8)',
+                                            'rgba(220, 53, 69, 0.8)',
+                                            'rgba(23, 162, 184, 0.8)',
+                                            'rgba(255, 159, 243, 0.8)'
+                                        ],
+                                        borderColor: chartData.colors || [
+                                            'rgba(102, 126, 234, 1)',
+                                            'rgba(118, 75, 162, 1)',
+                                            'rgba(40, 167, 69, 1)',
+                                            'rgba(32, 201, 151, 1)',
+                                            'rgba(255, 193, 7, 1)',
+                                            'rgba(220, 53, 69, 1)',
+                                            'rgba(23, 162, 184, 1)',
+                                            'rgba(255, 159, 243, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    }
+                                }
+                            };
+
+                            new Chart(ctx, chartConfig);
+                        }
+                    }
+                }
+
+                // Show download button
+                document.getElementById('downloadBtn').href = '/download/' + jobId;
+                document.getElementById('downloadBtn').style.display = 'inline-block';
+            });
+        }
+    </script>
+</body>
+</html>

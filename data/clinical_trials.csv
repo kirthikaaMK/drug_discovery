@@ -1,0 +1,13 @@
+Molecule,Trial ID,Phase,Status,Participants,Results,Start Date,End Date
+Remdesivir,NCT04280705,Phase 3,Completed,1062,Positive,2020-02-25,2020-05-15
+Remdesivir,NCT04292899,Phase 3,Completed,237,Ongoing analysis,2020-03-10,2020-06-20
+Pembrolizumab,KEYNOTE-001,Phase 1,Completed,550,Positive,2011-04-01,2015-12-31
+Pembrolizumab,KEYNOTE-006,Phase 3,Completed,834,Superior to chemo,2013-09-01,2016-03-15
+Insulin,LANTUS-001,Phase 3,Completed,1200,Effective,1998-01-01,2000-12-31
+Insulin,TOUJEO-002,Phase 3,Completed,800,Non-inferior,2012-05-01,2014-11-30
+Aspirin,ARRIVE,Phase 4,Completed,12546,No benefit for primary prevention,2010-01-01,2017-12-31
+Aspirin,ASCEND,Phase 4,Completed,15480,Reduced vascular events,2011-06-01,2017-09-30
+Morphine,NCT00100001,Phase 2,Completed,200,Effective for pain,2015-01-01,2017-06-30
+Morphine,NCT00200002,Phase 3,Completed,500,Standard treatment,2018-03-01,2020-12-31
+Bivalirudin,NCT00300003,Phase 3,Completed,4500,Non-inferior to heparin,2005-01-01,2007-06-30
+Bivalirudin,NCT00400004,Phase 4,Completed,1200,Reduced bleeding risk,2010-05-01,2012-11-30

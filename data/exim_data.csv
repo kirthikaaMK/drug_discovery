@@ -1,0 +1,13 @@
+Molecule,Country,Import Volume (tons),Export Volume (tons),Trade Value (USD),Year
+Remdesivir,USA,150,200,500M,2023
+Remdesivir,India,300,100,300M,2023
+Pembrolizumab,USA,80,120,800M,2023
+Pembrolizumab,Germany,60,90,600M,2023
+Insulin,China,500,400,1.2B,2023
+Insulin,USA,200,300,900M,2023
+Aspirin,India,1000,800,200M,2023
+Aspirin,UK,150,200,150M,2023
+Morphine,USA,50,30,150M,2023
+Morphine,India,80,20,100M,2023
+Bivalirudin,USA,40,60,200M,2023
+Bivalirudin,Germany,30,50,180M,2023
