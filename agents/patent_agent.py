@@ -5,7 +5,7 @@ from datetime import datetime
 
 class PatentAgent:
     def __init__(self):
-        self.api_url = os.getenv('PATENT_API_URL', 'https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v3/records')  # Replace with your API
+        self.api_url = os.getenv('PATENT_API_URL', '')  # Replace with your API
         self.api_key = os.getenv('PATENT_API_KEY', '')
         # Fallback to local data
         self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'patent_data.csv')
